@@ -15,13 +15,22 @@
       <label for="name">Name: </label>
       <input id="domoName" type="text" name="name" placeholder="Domo Name"/>
       <label for="age">Age: </label>
-      <input id="domoAge" type="text" name="age" placeholder="Domo Age"/>
+      <input id="domoAge" type="number" name="age" placeholder="Domo Age"/>
       <input class="makeDomoSubmit" type="submit" value="Make Domo" />
     </form>
   </section>
   <section id="domos">
     <div class="domo">
-
+      {{#if domos}}
+        {{#each domos}}
+          <div class="domo"><img src="/assets/img/domoface.jpeg" alt="domo face" class="domoFace"/>
+            <h3 class="domoName">Name: {{this.name}}</h3>
+            <h3 class="domoAge">Age: {{this.age}}</h3>
+          </div>
+        {{/each}}
+      {{else}}
+        <h3 class="emptyDomo">No Domos yet</h3>
+      {{/if}}
     </div>
   </section>
   <div id="domoMessage"><img id="speech" src="/assets/img/speech.png" alt="speech box"/>
