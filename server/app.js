@@ -23,23 +23,22 @@ mongoose.connect(dbURL, (err) => {
   }
 });
 
-//redis stuff
+// redis stuff
 let redisURL = {
   hostname: 'redis-17320.c244.us-east-1-2.ec2.cloud.redislabs.com',
-  port: '17320'
+  port: '17320',
 };
 
 let redisPASS = '4mutNNzZzMP3CUpAKuaqcSlHguJj1qNL';
-if(process.env.REDISCLOUD_URL) {
+if (process.env.REDISCLOUD_URL) {
   redisURL = url.parse(process.env.REDISCLOUD_URL);
-  [, redisPass] = redisURL.auth.split(':');
+  [, redisPASS] = redisURL.auth.split(':');
 }
-let redisClient = redis.createClient({
+const redisClient = redis.createClient({
   host: redisURL.hostname,
   port: redisURL.port,
   password: redisPASS,
 });
-
 
 // bring in our router
 const router = require('./router.js');
@@ -69,10 +68,10 @@ app.engine('handlebars', expressHandlebars({ defaultLayout: 'main' }));
 app.set('view engine', 'handlebars');
 app.set('views', `${__dirname}/../views`);
 app.use(cookieParser());
-//csrf needs to be here, after the cookie parser and before the router
+// csrf needs to be here, after the cookie parser and before the router
 app.use(csrf());
-app.use((err,req,res,next)=> {
-  if(err.code !== 'EBADCSRFTOKEN') return next (err);
+app.use((err, req, res, next) => {
+  if (err.code !== 'EBADCSRFTOKEN') return next(err);
   console.log('Missing CSRF token');
   return false;
 });
