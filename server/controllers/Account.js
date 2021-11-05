@@ -6,9 +6,9 @@ const loginPage = (req, res) => {
   res.render('login', { csrfToken: req.csrfToken() });
 };
 
-const signupPage = (req, res) => {
+/*const signupPage = (req, res) => {
   res.render('signup', { csrfToken: req.csrfToken() });
-};
+};*///removed in part D
 
 const logout = (req, res) => {
   req.session.destroy();
@@ -83,8 +83,20 @@ const signup = (request, response) => {
   });
 };
 
+const getToken = (request, response) => {
+  const req = request;
+  const res = response;
+
+  const csrfJSON = {
+    csrfToken: req.csrfToken(),
+  };
+
+  res.json(csrfJSON);
+}
+
 module.exports.loginPage = loginPage;
 module.exports.login = login;
 module.exports.logout = logout;
-module.exports.signupPage = signupPage;
+//module.exports.signupPage = signupPage;//removed in part D
 module.exports.signup = signup;
+module.exports.getToken = getToken;
