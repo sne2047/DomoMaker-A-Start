@@ -82,7 +82,7 @@ const createLoginWindow = (csrf) => {
 };
 
 const createSignupWindow = (csrf) => {
-    ReactDom.render(
+    ReactDOM.render(
         <SignupWindow csrf={csrf} />,
         document.querySelector("#content")    
     );
